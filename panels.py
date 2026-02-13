@@ -40,23 +40,24 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
         # --- ENGINE SELECTION ---
         row = layout.row(align=True)
         row.scale_y = 1.5
+        row.scale_x = 1.2
 
-        # Engine buttons with icons
+        # Engine buttons with icons and text
         icon_ue5 = get_icon("ICON_UE5")
         icon_unity = get_icon("ICON_UNITY")
 
         # UE5 button
         if props.engine_preset == 'UE5':
-            ue5_but = row.operator("cubemap.apply_preset", text="", icon_value=icon_ue5 if icon_ue5 else 'BLANK1', depress=True)
+            ue5_but = row.operator("cubemap.apply_preset", text="Unreal Engine 5", icon_value=icon_ue5 if icon_ue5 else 'BLANK1', depress=True)
         else:
-            ue5_but = row.operator("cubemap.apply_preset", text="", icon_value=icon_ue5 if icon_ue5 else 'BLANK1')
+            ue5_but = row.operator("cubemap.apply_preset", text="Unreal Engine 5", icon_value=icon_ue5 if icon_ue5 else 'BLANK1')
         ue5_but.engine_preset = 'UE5'
 
         # Unity button
         if props.engine_preset == 'UNITY':
-            unity_but = row.operator("cubemap.apply_preset", text="", icon_value=icon_unity if icon_unity else 'BLANK1', depress=True)
+            unity_but = row.operator("cubemap.apply_preset", text="Unity", icon_value=icon_unity if icon_unity else 'BLANK1', depress=True)
         else:
-            unity_but = row.operator("cubemap.apply_preset", text="", icon_value=icon_unity if icon_unity else 'BLANK1')
+            unity_but = row.operator("cubemap.apply_preset", text="Unity", icon_value=icon_unity if icon_unity else 'BLANK1')
         unity_but.engine_preset = 'UNITY'
 
         preset = CUBEMAP_PRESETS.get(props.engine_preset)

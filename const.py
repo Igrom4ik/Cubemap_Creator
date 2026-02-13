@@ -13,7 +13,7 @@ CUBEMAP_PRESETS = {
             ("negz", (math.radians(90), 0, 0)),
         ],
         'order_label': '+X, -X, -Y, +Y, +Z, -Z',
-        'default_format': 'OPEN_EXR',
+        'default_format': 'PNG',
     },
     'UNITY': {
         'name': 'Unity',
