@@ -26,7 +26,10 @@ jobs:
           import os
           import tomllib
           with open('blender_manifest.toml', 'rb') as f:
-              data = tomllib.load(f)
+              raw = f.read()
+          if raw.startswith(b'\xef\xbb\xbf'):
+              raw = raw[3:]
+          data = tomllib.loads(raw.decode('utf-8'))
           version = data.get('version', '0.0.0')
           addon_id = data.get('id', 'addon')
           with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as env:
@@ -78,5 +81,4 @@ jobs:
             dist/CHANGELOG.md
           body_path: dist/CHANGELOG.md
           fail_on_unmatched_files: true
-
 
