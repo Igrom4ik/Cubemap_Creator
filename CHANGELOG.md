@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.5.3 - 2026-02-13
+
+- Kept Pillow controls only in Preferences; main panel shows status only.
+
 ## v1.5.1 - 2026-02-13
 
 - Added visible popup for Pillow version check results.
