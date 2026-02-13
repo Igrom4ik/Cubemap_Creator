@@ -8,7 +8,7 @@ maintainer = "Igor Unguryanov"
 type = "add-on"
 website = "https://github.com/Igrom4ik/Cubemap_Creator"
 tags = ["Render", "Game Engine"]
-license = "GPL-3.0-or-later"
+license = ["GPL-3.0-or-later"]
 
 [blender]
 version_min = "5.0.1"
