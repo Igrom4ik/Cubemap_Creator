@@ -169,7 +169,7 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
 
 # Preferences Panel for Cubemap Renderer
 class CUBEMAP_PT_prefs(bpy.types.AddonPreferences):
-    bl_idname = "cubemap_renderer"
+    bl_idname = __package__
 
     def draw(self, context):
         layout = self.layout
