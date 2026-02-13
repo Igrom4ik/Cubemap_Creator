@@ -4,9 +4,12 @@ on:
   push:
     branches:
       - "**"
+    tags:
+      - "v*"
   release:
     types:
       - published
+  workflow_dispatch:
 
 jobs:
   build:
@@ -70,9 +73,10 @@ jobs:
             dist/CHANGELOG.md
 
       - name: Upload release assets
-        if: ${{ github.event_name == 'release' }}
+        if: ${{ github.event_name == 'release' || startsWith(github.ref, 'refs/tags/') }}
         uses: softprops/action-gh-release@v2
         with:
           files: |
             dist/${{ env.ARTIFACT_NAME }}
             dist/CHANGELOG.md
+          fail_on_unmatched_files: true
