@@ -23,9 +23,8 @@ from .operators import (
     CUBEMAP_OT_install_pillow,
     CUBEMAP_OT_stitch,
     CUBEMAP_OT_open_folder,
-    CUBEMAP_OT_check_pillow,
 )
-from .panels import CUBEMAP_PT_main_panel, CUBEMAP_PT_prefs
+from .panels import CUBEMAP_PT_main_panel
 
 # Global preview collection
 preview_collections = {}
@@ -39,9 +38,7 @@ classes = (
     CUBEMAP_OT_install_pillow,
     CUBEMAP_OT_stitch,
     CUBEMAP_OT_open_folder,
-    CUBEMAP_OT_check_pillow,
     CUBEMAP_PT_main_panel,
-    CUBEMAP_PT_prefs,
 )
 
 def register():
@@ -54,31 +51,27 @@ def register():
     pcoll = bpy.utils.previews.new()
     icons_dir = os.path.join(os.path.dirname(__file__), "assets")
     
-    # Load PNG icons
+    # Load SVG icons directly
+    # Blender 4.2+ supports SVG loading for UI previews.
     if os.path.exists(icons_dir):
+        # Helper to load icon if exists
         def load_icon(name, filename):
             path = os.path.join(icons_dir, filename)
             if os.path.exists(path):
                 try:
-                    icon = pcoll.load(name, path, 'IMAGE')
-                    print(f"✓ Loaded icon: {name} from {filename}")
-                    return True
+                    pcoll.load(name, path, 'IMAGE')
                 except Exception as e:
-                    print(f"⚠ Failed to load icon {filename}: {e}")
-                    return False
-            else:
-                print(f"✗ Icon file not found: {path}")
-                return False
+                    print(f"Failed to load icon {filename}: {e}")
 
-        # Load all icons
-        load_icon("ICON_UE5", "icon_ue5.png")
-        load_icon("ICON_UNITY", "icon_unity.png")
-        load_icon("ICON_RENDER", "icon_render.png")
-        load_icon("ICON_ASSEMBLE", "icon_assemble.png")
-        load_icon("ICON_FOLDER", "icon_folder.png")
-    else:
-        print(f"✗ Assets directory not found: {icons_dir}")
-
+        # Engine Logos (using the files you provided)
+        load_icon("ICON_UE5", "unreal_engine.svg")
+        load_icon("ICON_UNITY", "unity.svg")
+        
+        # Action Icons (using the SVGs I created)
+        load_icon("ICON_RENDER", "icon_render.svg")
+        load_icon("ICON_ASSEMBLE", "icon_assemble.svg")
+        load_icon("ICON_FOLDER", "icon_folder.svg")
+        
     preview_collections["main"] = pcoll
 
 def unregister():
