@@ -166,7 +166,7 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
 
 # Preferences Panel for Cubemap Renderer
 class CUBEMAP_PT_prefs(bpy.types.AddonPreferences):
-    bl_idname = __package__  # Use the actual package name from Python
+    bl_idname = __name__.split(".")[0]
 
     def draw(self, context):
         layout = self.layout

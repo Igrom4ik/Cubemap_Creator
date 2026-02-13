@@ -2,6 +2,7 @@
 
 ## v1.5.0 - 2026-02-13
 
+- Fixed add-on Preferences binding so Pillow settings show up.
 - Added add-on Preferences panel for Pillow dependency (install/check in Settings).
 - Moved Pillow installation out of the main UI; main panel shows status only.
 - Switched engine selector to icon buttons and widened the controls.
