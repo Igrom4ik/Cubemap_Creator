@@ -4,7 +4,7 @@ Blender add-on for rendering cubemaps for UE5 and Unity.
 
 ## Requirements
 
-- Blender 4.2+
+- Blender 5.0+
 
 ## Install (Extensions Platform)
 
@@ -19,9 +19,24 @@ Blender add-on for rendering cubemaps for UE5 and Unity.
 2. In Blender: Edit > Preferences > Add-ons.
 3. Enable "Cubemap Renderer".
 
-## Build (GitHub Actions)
+## Build Locally
 
-On every push, GitHub Actions builds a ZIP artifact and a generated `CHANGELOG.md` based on git history.
+For quick testing or customization, build the add-on locally:
+
+```powershell
+.\build.ps1
+```
+
+See [BUILD.md](BUILD.md) for detailed instructions.
+
+## Automated Builds (GitHub Actions)
+
+On every release tag (e.g., `v1.5.0`), GitHub Actions automatically:
+- Builds the ZIP archive
+- Generates a changelog
+- Attaches both to the GitHub Release
+
+Check [Releases](https://github.com/Igrom4ik/Cubemap_Creator/releases) for builds.
 
 ## Development
 
@@ -30,4 +45,4 @@ On every push, GitHub Actions builds a ZIP artifact and a generated `CHANGELOG.m
 
 ## License
 
-GPL-3.0 (confirm if you want a different license).
+GPL-3.0-or-later
