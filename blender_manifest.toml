@@ -12,9 +12,6 @@ license = ["GPL-3.0-or-later"]
 blender_version_min = "5.0.0"
 
 [permissions]
-network = [
-    "https://pypi.org/*", 
-    "https://files.pythonhosted.org/*"
-]
-files = "all" # Required to save rendered images to disk
-python_files = "all" # Required for subprocess pip install
+network = "https://pypi.org/*, https://files.pythonhosted.org/*"
+files = "all"
+python_files = "all"
