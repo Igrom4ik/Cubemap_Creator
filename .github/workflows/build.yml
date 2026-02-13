@@ -3,12 +3,9 @@ name: Build Blender Add-on
 on:
   push:
     branches:
-      - "**"
+      - main
     tags:
       - "v*"
-  release:
-    types:
-      - published
   workflow_dispatch:
 
 jobs:
@@ -72,11 +69,14 @@ jobs:
             dist/${{ env.ARTIFACT_NAME }}
             dist/CHANGELOG.md
 
-      - name: Upload release assets
-        if: ${{ github.event_name == 'release' || startsWith(github.ref, 'refs/tags/') }}
+      - name: Create Release and Upload Assets (on tag push)
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: |
             dist/${{ env.ARTIFACT_NAME }}
             dist/CHANGELOG.md
+          body_path: dist/CHANGELOG.md
           fail_on_unmatched_files: true
+
+
