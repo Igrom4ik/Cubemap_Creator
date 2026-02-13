@@ -1,7 +1,7 @@
-schema_version = "1.0.0"
+﻿schema_version = "1.0.0"
 
 id = "cubemap_renderer"
-version = "1.5.0"
+version = "1.5.1"
 name = "Cubemap Renderer"
 tagline = "Render cubemaps for UE5 and Unity"
 maintainer = "Igor Unguryanov"
@@ -15,3 +15,4 @@ blender_version_min = "5.0.0"
 network = "https://pypi.org/*, https://files.pythonhosted.org/*"
 files = "all"
 python_files = "all"
+
