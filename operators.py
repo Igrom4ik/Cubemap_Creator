@@ -149,11 +149,14 @@ class CUBEMAP_OT_render(bpy.types.Operator):
 class CUBEMAP_OT_install_pillow(bpy.types.Operator):
     bl_idname = "cubemap.install_pillow"
     bl_label = "Install Pillow"
-    bl_description = "Install Pillow library required for cubemap assembly"
+    bl_description = "Install or reinstall Pillow library required for cubemap assembly"
+
+    force_reinstall: bpy.props.BoolProperty(default=False)
 
     def execute(self, context):
-        self.report({'INFO'}, "Installing Pillow... Please wait (may take 30-60 seconds)")
-        if install_pillow():
+        action_label = "Reinstalling" if self.force_reinstall else "Installing"
+        self.report({'INFO'}, f"{action_label} Pillow... Please wait (may take 30-60 seconds)")
+        if install_pillow(force_reinstall=self.force_reinstall):
             self.report({'WARNING'}, "✓ Pillow installed! PLEASE RESTART BLENDER to activate it.")
 
             def draw(self_popup, context_popup):
@@ -268,11 +271,22 @@ class CUBEMAP_OT_check_pillow(bpy.types.Operator):
 
     def execute(self, context):
         try:
-            from PIL import Image
-            version = Image.__version__ if hasattr(Image, '__version__') else "Unknown"
+            import PIL
+            version = getattr(PIL, "__version__", "Unknown")
+            module_path = getattr(PIL, "__file__", "Unknown")
             self.report({'INFO'}, f"Pillow version: {version}")
+
+            def draw(self_popup, context_popup):
+                self_popup.layout.label(text=f"Pillow version: {version}")
+                self_popup.layout.label(text=f"Path: {module_path}")
+
+            context.window_manager.popup_menu(draw, title="Pillow Info", icon='INFO')
         except ImportError:
             self.report({'ERROR'}, "Pillow is not installed. Please install it from preferences.")
+            def draw(self_popup, context_popup):
+                self_popup.layout.label(text="Pillow is not installed.")
+                self_popup.layout.label(text="Install it from Preferences > Add-ons.")
+            context.window_manager.popup_menu(draw, title="Pillow Missing", icon='ERROR')
             return {'CANCELLED'}
 
         return {'FINISHED'}

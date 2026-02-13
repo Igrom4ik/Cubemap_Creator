@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.5.1 - 2026-02-13
+
+- Added visible popup for Pillow version check results.
+- Added force reinstall option for Pillow in Preferences and main panel.
+- Exposed Check Version action regardless of install state.
+
 ## v1.5.0 - 2026-02-13
 
 - Added add-on Preferences panel for Pillow dependency (install/check in Settings).
@@ -13,4 +19,3 @@
 - Fixed manifest schema for Blender 5.0+.
 - Updated permissions and license entries.
 - Improved icon loading and UI display.
-

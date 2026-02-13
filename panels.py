@@ -151,6 +151,8 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
             box_err.label(text="Pillow not installed", icon='ERROR')
             box_err.label(text="Install in Preferences or here", icon='INFO')
             box_err.operator("cubemap.install_pillow", text="Install Pillow", icon='IMPORT')
+            op = box_err.operator("cubemap.install_pillow", text="Force Reinstall", icon='RECOVER_LAST')
+            op.force_reinstall = True
 
         # Open Folder
         row = layout.row()
@@ -186,9 +188,13 @@ class CUBEMAP_PT_prefs(bpy.types.AddonPreferences):
         row = box.row()
         row.scale_y = 1.3
 
+        row.operator("cubemap.check_pillow", text="Check Version", icon='INFO')
         if pillow_status:
-            row.operator("cubemap.check_pillow", text="Check Version", icon='INFO')
+            op = row.operator("cubemap.install_pillow", text="Reinstall", icon='RECOVER_LAST')
+            op.force_reinstall = True
         else:
             row.operator("cubemap.install_pillow", text="Install Pillow", icon='IMPORT')
+            op = row.operator("cubemap.install_pillow", text="Force Reinstall", icon='RECOVER_LAST')
+            op.force_reinstall = True
 
         box.label(text="Pillow is required for assembling cubemap strips.", icon='INFO')
