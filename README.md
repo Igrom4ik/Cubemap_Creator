@@ -5,7 +5,7 @@ Blender add-on for rendering cubemaps for UE5 and Unity.
 ## Requirements
 
 - Blender 5.0+
-- Current version: 2.0.0
+- Current version: 1.5.0
 
 ## Install (Extensions Platform)
 
@@ -32,7 +32,7 @@ See [BUILD.md](BUILD.md) for detailed instructions.
 
 ## Automated Builds (GitHub Actions)
 
-On every release tag (e.g., `v2.0.0`), GitHub Actions automatically:
+On every release tag (e.g., `v1.5.0`), GitHub Actions automatically:
 - Builds the ZIP archive
 - Generates a changelog
 - Attaches both to the GitHub Release
