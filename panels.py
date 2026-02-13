@@ -40,8 +40,25 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
         # --- ENGINE SELECTION ---
         row = layout.row(align=True)
         row.scale_y = 1.5
-        row.prop(props, "engine_preset", expand=True)
-        
+
+        # Engine buttons with icons
+        icon_ue5 = get_icon("ICON_UE5")
+        icon_unity = get_icon("ICON_UNITY")
+
+        # UE5 button
+        if props.engine_preset == 'UE5':
+            ue5_but = row.operator("cubemap.apply_preset", text="", icon_value=icon_ue5 if icon_ue5 else 'BLANK1', depress=True)
+        else:
+            ue5_but = row.operator("cubemap.apply_preset", text="", icon_value=icon_ue5 if icon_ue5 else 'BLANK1')
+        ue5_but.engine_preset = 'UE5'
+
+        # Unity button
+        if props.engine_preset == 'UNITY':
+            unity_but = row.operator("cubemap.apply_preset", text="", icon_value=icon_unity if icon_unity else 'BLANK1', depress=True)
+        else:
+            unity_but = row.operator("cubemap.apply_preset", text="", icon_value=icon_unity if icon_unity else 'BLANK1')
+        unity_but.engine_preset = 'UNITY'
+
         preset = CUBEMAP_PRESETS.get(props.engine_preset)
         if preset:
             # Show Engine Logo
@@ -160,15 +177,19 @@ class CUBEMAP_PT_prefs(bpy.types.AddonPreferences):
 
         if pillow_status:
             row.label(text="Pillow Library", icon='CHECKMARK')
-            row.label(text="✓ Installed")
+            # Green "Installed" text
+            col = row.column()
+            col.label(text="✓ Installed")
+            col.label(text="").enabled = False  # Spacer for alignment
         else:
             row.label(text="Pillow Library", icon='ERROR')
             row.label(text="✗ Not installed")
 
         row = box.row()
-        row.scale_y = 1.2
+        row.scale_y = 1.3
 
         if pillow_status:
+            row.label(text="", icon='CHECKMARK')  # Green checkmark indicator
             row.operator("cubemap.check_pillow", text="Check Version", icon='INFO')
         else:
             row.operator("cubemap.install_pillow", text="Install Pillow", icon='IMPORT')

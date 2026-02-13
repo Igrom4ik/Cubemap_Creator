@@ -51,8 +51,12 @@ class CUBEMAP_OT_apply_preset(bpy.types.Operator):
     bl_label = "Apply Preset"
     bl_options = {'REGISTER', 'UNDO'}
 
+    engine_preset: bpy.props.StringProperty(default='UE5')
+
     def execute(self, context):
         props = context.scene.cubemap_props
+        if self.engine_preset:
+            props.engine_preset = self.engine_preset
         preset = CUBEMAP_PRESETS.get(props.engine_preset)
         if preset:
             props.file_format = preset['default_format']
