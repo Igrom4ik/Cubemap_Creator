@@ -4,10 +4,15 @@ on:
   push:
     branches:
       - "**"
+  release:
+    types:
+      - published
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -64,3 +69,10 @@ jobs:
             dist/${{ env.ARTIFACT_NAME }}
             dist/CHANGELOG.md
 
+      - name: Upload release assets
+        if: ${{ github.event_name == 'release' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/${{ env.ARTIFACT_NAME }}
+            dist/CHANGELOG.md
