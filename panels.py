@@ -29,7 +29,13 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
         # --- HEADER ---
         row = layout.row()
         row.scale_y = 1.2
-        row.label(text="Target Engine", icon='GAME')
+        # 'GAME' icon was removed in Blender 4.0+. Replaced with 'GHOST_ENABLED' or similar, 
+        # but 'CONTROLLER' or 'OBJECT_DATA' is safer. Let's use 'CONTROLLER' if available, or 'OBJECT_DATAMODE'.
+        # Actually 'GAME' icon removal is a known change.
+        # Let's use 'WINDOW' or 'PREFERENCES' or 'PROPERTIES' which are standard.
+        # But for "Target Engine", maybe 'PRESET' or 'SETTINGS'.
+        # Let's try 'PRESET'.
+        row.label(text="Target Engine", icon='PRESET')
         
         # --- ENGINE SELECTION ---
         row = layout.row(align=True)
@@ -136,3 +142,35 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
             row.operator("cubemap.open_folder", text="Open Output Folder", icon_value=icon_folder)
         else:
             row.operator("cubemap.open_folder", text="Open Output Folder", icon='FOLDER_REDIRECT')
+
+# Preferences Panel for Cubemap Renderer
+class CUBEMAP_PT_prefs(bpy.types.AddonPreferences):
+    bl_idname = __name__.split('.')[0]  # Get the addon name (cubemap_renderer)
+
+    def draw(self, context):
+        layout = self.layout
+
+        layout.label(text="Dependencies", icon='PACKAGE')
+
+        box = layout.box()
+
+        # Check Pillow status
+        pillow_status = is_pillow_installed()
+        row = box.row()
+
+        if pillow_status:
+            row.label(text="Pillow Library", icon='CHECKMARK')
+            row.label(text="✓ Installed")
+        else:
+            row.label(text="Pillow Library", icon='ERROR')
+            row.label(text="✗ Not installed")
+
+        row = box.row()
+        row.scale_y = 1.2
+
+        if pillow_status:
+            row.operator("cubemap.check_pillow", text="Check Version", icon='INFO')
+        else:
+            row.operator("cubemap.install_pillow", text="Install Pillow", icon='IMPORT')
+
+        box.label(text="Pillow is required for assembling cubemap strips.", icon='INFO')

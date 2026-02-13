@@ -46,9 +46,8 @@ class CubemapProperties(bpy.types.PropertyGroup):
         name="Format",
         description="Image file format",
         items=[
-            ('OPEN_EXR', "OpenEXR (.exr)", "HDR format, recommended for UE5"),
-            ('PNG', "PNG (.png)", "Standard PNG format, recommended for Unity"),
-            ('JPEG', "JPEG (.jpg)", "JPEG format (lossy)"),
+            ('PNG', "PNG (.png)", "Standard PNG format, lossless"),
+            ('JPEG', "JPEG (.jpg)", "JPEG format (lossy, smaller file size)"),
         ],
-        default='OPEN_EXR'
+        default='PNG'
     )

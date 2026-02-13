@@ -256,3 +256,20 @@ class CUBEMAP_OT_open_folder(bpy.types.Operator):
             return {'CANCELLED'}
 
         return {'FINISHED'}
+
+
+class CUBEMAP_OT_check_pillow(bpy.types.Operator):
+    bl_idname = "cubemap.check_pillow"
+    bl_label = "Check Pillow Version"
+
+    def execute(self, context):
+        try:
+            from PIL import Image
+            version = Image.__version__ if hasattr(Image, '__version__') else "Unknown"
+            self.report({'INFO'}, f"Pillow version: {version}")
+        except ImportError:
+            self.report({'ERROR'}, "Pillow is not installed. Please install it from preferences.")
+            return {'CANCELLED'}
+
+        return {'FINISHED'}
+
