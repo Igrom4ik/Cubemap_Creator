@@ -146,11 +146,11 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
             else:
                 col.operator("cubemap.stitch", text="Assemble Strip", icon='IMAGE_PLANE')
         else:
-            # Show error only - installation is in Preferences
             box_err = col.box()
             box_err.alert = True
             box_err.label(text="Pillow not installed", icon='ERROR')
-            box_err.label(text="Install via Edit > Preferences > Add-ons", icon='INFO')
+            box_err.label(text="Install in Preferences or here", icon='INFO')
+            box_err.operator("cubemap.install_pillow", text="Install Pillow", icon='IMPORT')
 
         # Open Folder
         row = layout.row()
@@ -178,19 +178,15 @@ class CUBEMAP_PT_prefs(bpy.types.AddonPreferences):
 
         if pillow_status:
             row.label(text="Pillow Library", icon='CHECKMARK')
-            # Green "Installed" text
-            col = row.column()
-            col.label(text="✓ Installed")
-            col.label(text="").enabled = False  # Spacer for alignment
+            row.label(text="Installed", icon='CHECKMARK')
         else:
             row.label(text="Pillow Library", icon='ERROR')
-            row.label(text="✗ Not installed")
+            row.label(text="Not installed")
 
         row = box.row()
         row.scale_y = 1.3
 
         if pillow_status:
-            row.label(text="", icon='CHECKMARK')  # Green checkmark indicator
             row.operator("cubemap.check_pillow", text="Check Version", icon='INFO')
         else:
             row.operator("cubemap.install_pillow", text="Install Pillow", icon='IMPORT')

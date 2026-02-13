@@ -1,11 +1,5 @@
 # Changelog
 
-## v1.5.1 - 2026-02-13
-
-- Fixed manifest schema for Blender 5.0+.
-- Updated permissions and license entries.
-- Improved icon loading and UI display.
-
 ## v1.5.0 - 2026-02-13
 
 - Added add-on Preferences panel for Pillow dependency (install/check in Settings).
@@ -16,3 +10,7 @@
 - Removed OpenEXR from supported formats to avoid assembly errors.
 - Fixed default format selection for UE5 preset.
 - Refined build and release automation to attach artifacts on tag releases.
+- Fixed manifest schema for Blender 5.0+.
+- Updated permissions and license entries.
+- Improved icon loading and UI display.
+
