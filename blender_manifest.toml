@@ -1,0 +1,18 @@
+schema_version = "1.0.0"
+
+id = "cubemap_renderer"
+version = "1.5.0"
+name = "Cubemap Renderer"
+tagline = "Render cubemaps for UE5 and Unity"
+maintainer = "Igor Unguryanov"
+type = "add-on"
+website = "https://github.com/Igrom4ik/Cubemap_Creator"
+tags = ["Render", "Game Engine"]
+
+[blender]
+version_min = "4.2.0"
+
+[permissions]
+network = { optional = true, reason = "To install the Pillow library via pip if not present." }
+files = "all" # Required to save rendered images to disk
+python_files = "all" # Required for subprocess pip install

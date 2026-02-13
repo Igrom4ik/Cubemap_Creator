@@ -1,0 +1,66 @@
+name: Build Blender Add-on
+
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read manifest
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os
+          import tomllib
+          with open('blender_manifest.toml', 'rb') as f:
+              data = tomllib.load(f)
+          version = data.get('version', '0.0.0')
+          addon_id = data.get('id', 'addon')
+          with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as env:
+              env.write(f"ADDON_VERSION={version}\n")
+              env.write(f"ADDON_ID={addon_id}\n")
+          PY
+
+      - name: Generate changelog
+        shell: bash
+        run: |
+          mkdir -p dist
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -n "$LAST_TAG" ]; then
+            RANGE="$LAST_TAG..HEAD"
+          else
+            RANGE="HEAD"
+          fi
+          {
+            echo "# Changelog"
+            echo ""
+            echo "Generated from git history."
+            echo ""
+            git log $RANGE --pretty=format:"- %s (%h)"
+          } > dist/CHANGELOG.md
+
+      - name: Package add-on
+        shell: bash
+        run: |
+          mkdir -p dist
+          ZIP_NAME="${ADDON_ID}-${ADDON_VERSION}.zip"
+          zip -r "dist/${ZIP_NAME}" . \
+            -x ".git/*" ".github/*" ".idea/*" ".venv/*" "dist/*"
+          echo "ARTIFACT_NAME=${ZIP_NAME}" >> "$GITHUB_ENV"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: |
+            dist/${{ env.ARTIFACT_NAME }}
+            dist/CHANGELOG.md
+
