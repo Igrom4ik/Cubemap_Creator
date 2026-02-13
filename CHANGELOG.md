@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.5.4 - 2026-02-13
+
+- Fixed manifest encoding (removed BOM) so tomllib can parse it.
+
 ## v1.5.3 - 2026-02-13
 
 - Kept Pillow controls only in Preferences; main panel shows status only.
