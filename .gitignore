@@ -9,3 +9,7 @@ __pycache__/
 .DS_Store
 Thumbs.db
 dist/
+build.ps1
+release.ps1
+convert_svg*.py
+recreate_icons.py
