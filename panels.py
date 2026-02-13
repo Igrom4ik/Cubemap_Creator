@@ -55,8 +55,7 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
             logo_icon_id = get_icon(icon_name)
             
             if logo_icon_id:
-                # Big icon hack: create a button or label with scale
-                row.template_icon(icon_value=logo_icon_id, scale=3.0)
+                row.label(text=preset['name'], icon_value=logo_icon_id)
             else:
                 row.label(text=preset['name'], icon='INFO')
 
@@ -121,7 +120,7 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
         
         col.separator()
         
-        # Assemble Button
+        # Assemble Button - Check Pillow
         if is_pillow_installed():
             icon_assemble = get_icon("ICON_ASSEMBLE")
             if icon_assemble:
@@ -129,10 +128,11 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
             else:
                 col.operator("cubemap.stitch", text="Assemble Strip", icon='IMAGE_PLANE')
         else:
+            # Show error only - installation is in Preferences
             box_err = col.box()
             box_err.alert = True
-            box_err.label(text="Library Missing", icon='ERROR')
-            box_err.operator("cubemap.install_pillow", text="Install Pillow", icon='IMPORT')
+            box_err.label(text="Pillow not installed", icon='ERROR')
+            box_err.label(text="Install via Edit > Preferences > Add-ons", icon='INFO')
 
         # Open Folder
         row = layout.row()
@@ -145,7 +145,7 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
 
 # Preferences Panel for Cubemap Renderer
 class CUBEMAP_PT_prefs(bpy.types.AddonPreferences):
-    bl_idname = __name__.split('.')[0]  # Get the addon name (cubemap_renderer)
+    bl_idname = __package__  # Use the actual package name from Python
 
     def draw(self, context):
         layout = self.layout
