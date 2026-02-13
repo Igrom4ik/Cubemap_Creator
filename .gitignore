@@ -13,3 +13,5 @@ build.ps1
 release.ps1
 convert_svg*.py
 recreate_icons.py
+generate_icons.py
+assets/*.png
