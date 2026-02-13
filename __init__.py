@@ -72,16 +72,14 @@ def register():
                 return False
             return True
 
-        # Load PNG icons for buttons (color-rich display)
-        load_icon("ICON_RENDER", "icon_render.png")
-        load_icon("ICON_ASSEMBLE", "icon_assemble.png")
-        load_icon("ICON_FOLDER", "icon_folder.png")
+        # Load SVG icons for buttons (scalable, crisp)
+        load_icon("ICON_RENDER", "icon_render.svg")
+        load_icon("ICON_ASSEMBLE", "icon_assemble.svg")
+        load_icon("ICON_FOLDER", "icon_folder.svg")
 
-        # Load engine logos (try PNG first, then SVG)
-        if not load_icon("ICON_UE5", "icon_ue5.png"):
-            load_icon("ICON_UE5", "unreal_engine.svg")
-        if not load_icon("ICON_UNITY", "icon_unity.png"):
-            load_icon("ICON_UNITY", "unity.svg")
+        # Load engine logos (SVG)
+        load_icon("ICON_UE5", "unreal_engine.svg")
+        load_icon("ICON_UNITY", "unity.svg")
 
     preview_collections["main"] = pcoll
 
