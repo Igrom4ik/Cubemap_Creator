@@ -139,7 +139,8 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
         col.separator()
         
         # Assemble Button - Check Pillow
-        if is_pillow_installed():
+        pillow_status = is_pillow_installed()
+        if pillow_status:
             icon_assemble = get_icon("ICON_ASSEMBLE")
             if icon_assemble:
                 col.operator("cubemap.stitch", text="Assemble Strip", icon_value=icon_assemble)
@@ -152,6 +153,24 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
             box_err.label(text="Install in Preferences or here", icon='INFO')
             box_err.operator("cubemap.install_pillow", text="Install Pillow", icon='IMPORT')
             op = box_err.operator("cubemap.install_pillow", text="Force Reinstall", icon='RECOVER_LAST')
+            op.force_reinstall = True
+
+        # Pillow quick actions
+        pillow_box = layout.box()
+        pillow_box.label(text="Pillow", icon='PACKAGE')
+        row = pillow_box.row()
+        if pillow_status:
+            row.label(text="Installed", icon='CHECKMARK')
+        else:
+            row.label(text="Not installed", icon='ERROR')
+        row = pillow_box.row(align=True)
+        row.operator("cubemap.check_pillow", text="Check Version", icon='INFO')
+        if pillow_status:
+            op = row.operator("cubemap.install_pillow", text="Reinstall", icon='RECOVER_LAST')
+            op.force_reinstall = True
+        else:
+            row.operator("cubemap.install_pillow", text="Install Pillow", icon='IMPORT')
+            op = row.operator("cubemap.install_pillow", text="Force Reinstall", icon='RECOVER_LAST')
             op.force_reinstall = True
 
         # Open Folder
