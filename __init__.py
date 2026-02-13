@@ -23,8 +23,9 @@ from .operators import (
     CUBEMAP_OT_install_pillow,
     CUBEMAP_OT_stitch,
     CUBEMAP_OT_open_folder,
+    CUBEMAP_OT_check_pillow,
 )
-from .panels import CUBEMAP_PT_main_panel
+from .panels import CUBEMAP_PT_main_panel, CUBEMAP_PT_prefs
 
 # Global preview collection
 preview_collections = {}
@@ -38,7 +39,9 @@ classes = (
     CUBEMAP_OT_install_pillow,
     CUBEMAP_OT_stitch,
     CUBEMAP_OT_open_folder,
+    CUBEMAP_OT_check_pillow,
     CUBEMAP_PT_main_panel,
+    CUBEMAP_PT_prefs,
 )
 
 def register():
