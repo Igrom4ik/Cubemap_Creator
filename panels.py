@@ -155,24 +155,6 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
             op = box_err.operator("cubemap.install_pillow", text="Force Reinstall", icon='RECOVER_LAST')
             op.force_reinstall = True
 
-        # Pillow quick actions
-        pillow_box = layout.box()
-        pillow_box.label(text="Pillow", icon='PACKAGE')
-        row = pillow_box.row()
-        if pillow_status:
-            row.label(text="Installed", icon='CHECKMARK')
-        else:
-            row.label(text="Not installed", icon='ERROR')
-        row = pillow_box.row(align=True)
-        row.operator("cubemap.check_pillow", text="Check Version", icon='INFO')
-        if pillow_status:
-            op = row.operator("cubemap.install_pillow", text="Reinstall", icon='RECOVER_LAST')
-            op.force_reinstall = True
-        else:
-            row.operator("cubemap.install_pillow", text="Install Pillow", icon='IMPORT')
-            op = row.operator("cubemap.install_pillow", text="Force Reinstall", icon='RECOVER_LAST')
-            op.force_reinstall = True
-
         # Open Folder
         row = layout.row()
         row.scale_y = 1.0
