@@ -11,6 +11,9 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
+        if not hasattr(context.scene, "cubemap_props"):
+            layout.label(text="Addon not initialized", icon='ERROR')
+            return
         props = context.scene.cubemap_props
         
         # Get icons
@@ -166,7 +169,7 @@ class CUBEMAP_PT_main_panel(bpy.types.Panel):
 
 # Preferences Panel for Cubemap Renderer
 class CUBEMAP_PT_prefs(bpy.types.AddonPreferences):
-    bl_idname = __name__.split(".")[0]
+    bl_idname = "cubemap_renderer"
 
     def draw(self, context):
         layout = self.layout
